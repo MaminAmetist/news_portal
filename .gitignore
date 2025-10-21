@@ -1,2 +1,5 @@
 venv
 .idea
+migration
+site.db
+config.py
