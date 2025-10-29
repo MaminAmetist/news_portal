@@ -82,3 +82,22 @@ async def edit_post(uuid: str, request: Request, db: Session = Depends(get_db)):
             response_dict.update(form.__dict__)
 
     return TemplateResponse('blog/edit-post.jinja2', response_dict)
+
+
+@post_route.get('/remove/{uuid}')
+@login_required
+async def remove_post(uuid: str, request: Request, db: Session = Depends(get_db)):
+    response_dict = await setup_user_dict(request, db)
+    try:
+        post = db.query(Post).filter(Post.uid == uuid).first()
+    except StatementError:
+        post = None
+
+    user = response_dict.get('user')
+
+    if user == post.owner:
+        db.delete(post)
+        db.commit()
+        return RedirectResponse('/blog/')
+
+    return RedirectResponse(request.headers.get('referer'))
