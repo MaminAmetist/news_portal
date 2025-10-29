@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from .img_extension import IMG_EXTENSION_LIST
 from fastapi.templating import Jinja2Templates
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 
 
