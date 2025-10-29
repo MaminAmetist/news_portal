@@ -14,7 +14,8 @@ def login_required(func):
         token = request.cookies.get('token')
         db: Session = kwargs.get('db')
 
-        if request is None or token is None or not await get_user_by_token(token, db):
+        if request is None or token is None or not await get_user_by_token(
+                token, db):
             return RedirectResponse('/login')
 
         return await func(*args, **kwargs)

@@ -57,7 +57,7 @@ class AddPostForm(PostForm):
         image_path = await self.load_photo_from_form()
         if image_path:
             post = Post(title=self.title, image=image_path,
-                        content=self.content, owner=self.owner)
+                         content=self.content, owner=self.owner)
             db.add(post)
             db.commit()
             db.refresh(post)

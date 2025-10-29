@@ -23,8 +23,7 @@ def hash_password(password: str, salt: str = None):
     if salt is None:
         salt = get_random_string()
 
-    enc = hashlib.pbkdf2_hmac('sha256', password.encode(),
-                              salt.encode(), 100_000)
+    enc = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 100_000)
     return enc.hex()
 
 
@@ -46,8 +45,7 @@ async def get_user_by_token(token: str, db: Session):
 
 
 async def get_token_by_user(user_uid: str, db: Session):
-    token = db.query(Token).filter(and_(Token.user_uid ==
-                                        user_uid, Token.expires > datetime.now())).first()
+    token = db.query(Token).filter(and_(Token.user_uid == user_uid, Token.expires > datetime.now())).first()
     return token
 
 
@@ -66,7 +64,6 @@ async def do_hash_password(password):
     hashed_password = hash_password(password, salt)
     return f"{salt}${hashed_password}"
 
-
 async def create_user(user: UserCreate, db: Session):
     """ Создает нового пользователя в БД """
     hashed_password = await do_hash_password(user.password)
@@ -80,7 +77,7 @@ async def create_user(user: UserCreate, db: Session):
     db.commit()
     db.refresh(user_db)
 
-    user_uid = user_db.user_id
+    user_uid = user_db.uid
 
     return {**user.dict(), 'uid': user_uid, 'is_active': True}
 

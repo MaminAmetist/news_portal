@@ -1,18 +1,19 @@
 from typing import Optional, List
+
 from pydantic import BaseModel, EmailStr, UUID4, Field, validator
 from datetime import datetime
 
 
 class UserCreate(BaseModel):
-    """Проверяет sign-up запрос"""
+    """ Проверяет sign-up запрос """
     username: str
     email: EmailStr
     password: str
 
 
 class UserBase(BaseModel):
-    """Формирует тело ответа с деталями пользователя"""
-    user_id: str
+    """ Формирует тело ответа с деталями пользователя """
+    uid: str
     email: EmailStr
     username: str
 
@@ -32,7 +33,7 @@ class TokenBase(BaseModel):
 
 
 class User(UserBase):
-    """Формирует тело ответа с деталями пользователя и токеном"""
+    """ Формирует тело ответа с деталями пользователя и токеном """
     token: TokenBase = {}
 
 

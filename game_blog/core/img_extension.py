@@ -41,4 +41,5 @@ IMG_EXTENSION_LIST = [
     'rla',
     'rpf',
     'pnm',
+
 ]

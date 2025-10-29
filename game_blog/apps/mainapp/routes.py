@@ -10,6 +10,7 @@ from core.config import TemplateResponse
 from core.decorators import login_required
 from core.requests_framework import setup_user_dict
 from db.session import get_db
+
 from apps.postapp.routes import post_route
 
 api_router = APIRouter()

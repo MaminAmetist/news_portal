@@ -50,7 +50,7 @@ async def create_post(request: Request, db: Session = Depends(get_db)):
 async def show_post(uuid: str, request: Request, db: Session = Depends(get_db)):
     response_dict = await setup_user_dict(request, db)
     try:
-        post = db.query(Post).filter(Post.post_id == uuid).first()
+        post = db.query(Post).filter(Post.uid == uuid).first()
     except StatementError:
         post = None
 
@@ -65,7 +65,7 @@ async def show_post(uuid: str, request: Request, db: Session = Depends(get_db)):
 async def edit_post(uuid: str, request: Request, db: Session = Depends(get_db)):
     response_dict = await setup_user_dict(request, db)
     try:
-        post = db.query(Post).filter(Post.post_id == uuid).first()
+        post = db.query(Post).filter(Post.uid == uuid).first()
     except StatementError:
         return RedirectResponse(request.headers.get('referer'))
 
